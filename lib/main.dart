@@ -1,112 +1,161 @@
+
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: TextFieldTask(),
-  ));
-}
+class Textfild extends StatefulWidget {
+  Textfild({super.key});
 
-class TextFieldTask extends StatefulWidget {
   @override
-  _TextFieldTaskState createState() => _TextFieldTaskState();
+  State<Textfild> createState() => _TextfildState();
 }
 
-class _TextFieldTaskState extends State<TextFieldTask> {
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-
-  // copy text
-  void copyText() {
+class _TextfildState extends State<Textfild> {
+  TextEditingController _controller1= TextEditingController();
+  TextEditingController _controller2= TextEditingController();
+  late String controller3;
+  void _login(){
     setState(() {
-      controller2.text = controller1.text;
+      _controller2.text=_controller1.text;
     });
   }
+  void _Navgitor(){
 
-  // navigate
-  void goToNextPage() {
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => NextPage(
-          text: controller1.text,
-        ),
-      ),
-    );
-  }
+        context,
+        MaterialPageRoute(builder: (context)=>Towpage(
+            name: _controller1.text
 
+        )));
+  }
+  void _Navgitor1(){
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context)=>Towpage1(
+            name: _controller1.text
+
+        )));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Page"),
-        backgroundColor: Colors.brown[300], // light brown
+      appBar: AppBar(title: Text('Home Page'),
+        backgroundColor: Colors.blueGrey,
+
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            SizedBox(height: 20),
-            TextField(
-              controller: controller1,
-              decoration: InputDecoration(
-                labelText: "Enter your text",
+      body: Column(
+        children: [
+          SizedBox(height: 20,),
+          TextField(
+            decoration: InputDecoration(
+                labelText: 'Enter the Name',
+                hintText:'ahmed' ,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
+                    borderRadius: BorderRadius.circular(30.0)
+                )
             ),
-            SizedBox(height: 20),
-            TextField(
-              controller: controller2,
-              readOnly: true,
-              decoration: InputDecoration(
-                labelText: "Result",
+            controller: _controller1,
+          ),
+          SizedBox(height: 20,),
+          TextField(
+            decoration: InputDecoration(
+                labelText: ' the Name',
+                //  hintText:'ahmed' ,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
+                    borderRadius: BorderRadius.circular(30.0)
+                )
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: copyText,
+            controller: _controller2,
+            readOnly: true,
+          ),
+          ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.brown[300], // light brown
+                backgroundColor: Colors.blueGrey,
               ),
-              child: Text("Copy Text"),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: goToNextPage,
+              onPressed: (){
+
+                _login();
+              },
+
+              child: Text('Submit')),
+          ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.brown[300], // light brown
+                backgroundColor: Colors.blueGrey,
               ),
-              child: Text("Go to Next Page"),
-            ),
-          ],
-        ),
+              onPressed: (){
+                _Navgitor();
+              },
+              child: Text('Navgitor')),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueGrey,
+              ),
+              onPressed: (){
+                _Navgitor1();
+              },
+              child: Text('Navgitor1')),
+        ],
+      ),
+
+    );
+
+  }
+}
+class Towpage extends StatelessWidget {
+  final String name;
+  Towpage({super.key,
+    required this.name
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(title: Text('Tow Page'),
+        backgroundColor: Colors.blueGrey,
+      ),
+      body: Center(
+        child: Text(name),
       ),
     );
   }
 }
 
-class NextPage extends StatelessWidget {
-  final String text;
+class Towpage1 extends StatefulWidget {
+  final String name;
 
-  NextPage({required this.text});
+  Towpage1({super.key,
+    required this.name
+  });
 
   @override
+  State<Towpage1> createState() => _Towpage1State();
+}
+
+class _Towpage1State extends State<Towpage1> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Second Page"),
-        backgroundColor: Colors.brown[300],
-      ),
-      body: Center(
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 25),
+    return  Scaffold(
+        appBar: AppBar(title: Text('Tow Page'),
+          backgroundColor: Colors.blueGrey,
         ),
-      ),
+        body:
+        Column(
+          children: [
+            Center(
+              child: Text(widget.name),
+            ),
+            Text('data'),
+
+            ElevatedButton(onPressed:() {
+              Navigator.pop(context);
+            },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueGrey,
+                ),
+                child: Text('Back'))
+          ],
+        )
+
+
+
     );
   }
 }
