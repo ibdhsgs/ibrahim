@@ -11,65 +11,85 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const UserProfile(),
+      home: const HomeScreen(),
     );
   }
 }
 
-class UserProfile extends StatelessWidget {
-  const UserProfile({super.key});
+class UserInfoCard extends StatelessWidget {
+  final String name;
+  final String email;
+  final String role;
+
+  const UserInfoCard({
+    super.key,
+    required this.name,
+    required this.email,
+    required this.role,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            const Icon(Icons.person, size: 40),
+            const SizedBox(width: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(email),
+                Text(
+                  role,
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('User Profile'),
-      ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            color: Colors.blueAccent,
-            child: Column(
-              children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundImage:
-                  Image.asset('pics/profilepic.png').image,
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'ibrahim ',
-                  style: TextStyle(fontSize: 24, color: Colors.white),
-                ),
-                const Text(
-                  'Software Developer',
-                  style: TextStyle(fontSize: 16, color: Colors.white70),
-                ),
-              ],
-            ),
+      appBar: AppBar(title: const Text('Developer List')),
+      body: ListView(
+        children: const [
+          UserInfoCard(
+            name: 'ibrahim',
+            email: 'ibrahim776 @example.com',
+            role: 'Software Developer',
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text('Email:'),
-                Text('ibrahim776@gmail.com'),
-              ],
-            ),
+          UserInfoCard(
+            name: 'ibrahim',
+            email: 'ibrahim776 @example.com',
+            role: 'Software Developer',
           ),
-          const Divider(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text('Phone:'),
-                Text('772823239'),
-              ],
-            ),
+          UserInfoCard(
+            name: 'ibrahim',
+            email: 'ibrahim776 @example.com',
+            role: 'Software Developer',
+          ),
+          UserInfoCard(
+            name: 'ibrahim',
+            email: 'ibrahim776 @example.com',
+            role: 'Software Developer',
           ),
         ],
       ),
